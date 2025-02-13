@@ -4,6 +4,7 @@
 //
 //  Created by João Marcelo Colombini Cardonha on 10/02/25.
 //
+
 import SwiftUI
 
 struct VacinaItemView: View {

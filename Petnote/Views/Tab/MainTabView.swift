@@ -22,6 +22,7 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView(show: .constant(true))
+        .modelContainer(for: Pet.self)
 }
 
 enum Tabs: Int {

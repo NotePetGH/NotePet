@@ -14,9 +14,7 @@ struct CustomTabBar: View {
             Divider()
             HStack {
                 Button {
-                    withAnimation(.snappy) {
-                        selectedTab = .pets
-                    }
+                    selectedTab = .pets
                 } label: {
                     VStack(spacing: 2) {
                         Image(systemName: "pawprint.fill")
@@ -29,9 +27,7 @@ struct CustomTabBar: View {
                 }
                 Spacer()
                 Button {
-                    withAnimation(.snappy) {
-                        selectedTab = .ajustes
-                    }
+                    selectedTab = .ajustes
                 } label: {
                     VStack(spacing: 2) {
                         Image(systemName: "gearshape")

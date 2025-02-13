@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct MyPetsView: View {
+    @Namespace var namespace
     @State var showSheet = false
     @Environment(\.modelContext) var modelContext
     let columns: [GridItem] = [GridItem(.flexible()),
@@ -41,33 +42,44 @@ struct MyPetsView: View {
                 .padding(16)
                 
                 if !pets.isEmpty {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(pets) { pet in
-                            NavigationLink {
-                                PetDetailedView(pet: pet)
-                            } label: {
-                                PetCardView(imageURL: UIImage(data: pet.imageURL)!, petName: pet.name)
-                            }
-                            .contextMenu {
-                                Button(role: .destructive){
-                                    withAnimation {
-                                        modelContext.delete(pet)
-                                    }
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(pets) { pet in
+                                NavigationLink {
+                                    PetDetailedView(pet: pet)
+                                        .navigationTransition(.zoom(sourceID: "pet", in: namespace))
                                 } label: {
-                                    Label("Deletar pet", systemImage: "trash")
+                                    PetCardView(imageURL: UIImage(data: pet.imageURL)!, petName: pet.name)
+                                        .matchedTransitionSource(id: "pet", in: namespace)
+                                }
+                                .contextMenu {
+                                    Button(role: .destructive){
+                                        withAnimation {
+                                            modelContext.delete(pet)
+                                        }
+                                    } label: {
+                                        Label("Deletar pet", systemImage: "trash")
+                                    }
                                 }
                             }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                     
                 } else {
-                    Spacer().frame(height: 100)
-                    Text("Parece que você não adicionou um pet ainda. Clique no + para adicionar!")
-                        .padding(.horizontal, 30)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.gray)
-                        .font(.title)
+                    ScrollView {
+                        Spacer().frame(height: 100)
+                    
+                        VStack(spacing: 12) {
+                            Text("🐶")
+                                .font(.largeTitle)
+                            Text("Parece que você não adicionou um pet ainda. Clique no + para adicionar!")
+                                .padding(.horizontal, 30)
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(.gray)
+                                .font(.body)
+                        }
+                    }
                         
                 }
                 
