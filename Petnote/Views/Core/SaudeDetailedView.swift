@@ -23,7 +23,8 @@ struct SaudeDetailView: View {
                     Text("Remédios")
                         .font(.system(size: 14, weight: .medium))
                         .padding(12)
-                        .background(selectedView == .remedios ? Color(red: 1, green: 0.91, blue: 0.49) : Color(red: 0.98, green: 0.98, blue: 0.98))
+                        .foregroundStyle(selectedView == .remedios ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
+                        .background(selectedView == .remedios ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .onTapGesture {
                             selectedView = .remedios
@@ -31,7 +32,8 @@ struct SaudeDetailView: View {
                     Text("Vacinas")
                         .font(.system(size: 14, weight: .medium))
                         .padding(12)
-                        .background(selectedView == .vacinas ? Color(red: 1, green: 0.91, blue: 0.49) : Color(red: 0.98, green: 0.98, blue: 0.98))
+                        .foregroundStyle(selectedView == .vacinas ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
+                        .background(selectedView == .vacinas ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .onTapGesture {
                             selectedView = .vacinas
@@ -39,7 +41,8 @@ struct SaudeDetailView: View {
                     Text("Consultas")
                         .font(.system(size: 14, weight: .medium))
                         .padding(12)
-                        .background(selectedView == .consultas ? Color(red: 1, green: 0.91, blue: 0.49) : Color(red: 0.98, green: 0.98, blue: 0.98))
+                        .foregroundStyle(selectedView == .consultas ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
+                        .background(selectedView == .consultas ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .onTapGesture {
                             selectedView = .consultas
@@ -90,9 +93,9 @@ struct SaudeDetailView: View {
             } label: {
                 Image(systemName: "plus")
                     .font(.title3.weight(.semibold))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.white)
                     .padding(14)
-                    .background(Color(red: 1, green: 0.91, blue: 0.49), in: Circle())
+                    .background(Color(red: 0.22, green: 0.31, blue: 0.45), in: Circle())
                     .padding(16)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }

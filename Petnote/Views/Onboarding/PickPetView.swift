@@ -15,30 +15,30 @@ struct PickPetView: View {
                 .navigationBarBackButtonHidden()
         } else {
             NavigationStack {
-                VStack(spacing: 110) {
-                    VStack(spacing: 57) {
+                VStack(spacing: 180) {
                         Text("Qual seu bichinho?")
                             .font(.system(size: 28, weight: .medium))
                             .multilineTextAlignment(.center)
-                        VStack(spacing: 17) {
-                            HStack(spacing: 17) {
-                                ExtractedView()
-                                ExtractedView()
-                            }
-                            HStack(spacing: 17) {
-                                ExtractedView()
-                                ExtractedView()
-                            }
-                            HStack {
-                                Spacer()
-                                Image(systemName: "circle")
+                        
+                        HStack(spacing: 17) {
+                            VStack {
+                                Image(.cachorro)
                                     .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .fontWeight(.ultraLight)
-                                Spacer()
+                                    .frame(width: 125, height: 125)
+                                
+                                Text("Cachorro")
+                                    .font(.system(size: 20, weight: .medium))
+                            }
+                            VStack {
+                                Image(.gato)
+                                    .resizable()
+                                    .frame(width: 125, height: 125)
+                                
+                                Text("Gato")
+                                    .font(.system(size: 20, weight: .medium))
                             }
                         }
-                    }
+                    
                     Button {
                         withAnimation {
                             showTabView.toggle()

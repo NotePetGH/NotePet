@@ -12,10 +12,8 @@ struct MyPetsView: View {
     @Namespace var namespace
     @State var showSheet = false
     @Environment(\.modelContext) var modelContext
-    let columns: [GridItem] = [GridItem(.flexible()),
-                               GridItem(.flexible())]
     @Query var pets: [Pet]
-    
+    @State var scrollPosition: Int? = nil
     var body: some View {
         NavigationStack {
             VStack {
@@ -34,7 +32,7 @@ struct MyPetsView: View {
                     }
                     .sheet(isPresented: $showSheet) {
                         AddPetView()
-                            .presentationDetents([.height(650)])
+                            .presentationDetents([.height(600)])
                             .presentationDragIndicator(.visible)
                         
                     }
@@ -42,34 +40,45 @@ struct MyPetsView: View {
                 .padding(16)
                 
                 if !pets.isEmpty {
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 20) {
+                    ScrollView(.horizontal) {
+                        Spacer().frame(height: 20)
+                        HStack(spacing: 15) {
+                            Spacer()
                             ForEach(pets) { pet in
                                 NavigationLink {
                                     PetDetailedView(pet: pet)
-                                        .navigationTransition(.zoom(sourceID: "pet", in: namespace))
+                                        .navigationTransition(.zoom(sourceID: "pet\(pet.id)", in: namespace))
                                 } label: {
                                     PetCardView(imageURL: UIImage(data: pet.imageURL)!, petName: pet.name)
-                                        .matchedTransitionSource(id: "pet", in: namespace)
+                                        .matchedTransitionSource(id: "pet\(pet.id)", in: namespace)
+                                        
+                                        
                                 }
                                 .contextMenu {
                                     Button(role: .destructive){
-                                        withAnimation {
-                                            modelContext.delete(pet)
+                                        withAnimation() {
+                                            deletarPet(pet)
                                         }
                                     } label: {
                                         Label("Deletar pet", systemImage: "trash")
                                     }
                                 }
                             }
+                            Spacer()
                         }
-                        .padding(.horizontal)
                     }
+                    .scrollTargetLayout()
+                    .scrollTargetBehavior(.viewAligned)
+                    .scrollIndicators(.hidden)
+                    .scrollBounceBehavior(.basedOnSize)
+                    .animation(.smooth, value: scrollPosition)
+                    
                     
                 } else {
+                    
                     ScrollView {
                         Spacer().frame(height: 100)
-                    
+                        
                         VStack(spacing: 12) {
                             Text("🐶")
                                 .font(.largeTitle)
@@ -90,6 +99,10 @@ struct MyPetsView: View {
             .navigationTitle("Meus bichos")
         }
     }
+    private func deletarPet(_ pet: Pet) {
+            modelContext.delete(pet) // Remove do SwiftData
+            try? modelContext.save() // Salva as mudanças
+        }
 }
 
 #Preview {

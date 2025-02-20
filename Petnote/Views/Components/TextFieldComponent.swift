@@ -22,7 +22,7 @@ struct TextFieldComponent: View {
                 .padding()
                 .overlay {
                     RoundedRectangle(cornerRadius: 22)
-                        .stroke(Color(red: 1, green: 0.91, blue: 0.49), lineWidth: 1.5)
+                        .stroke(Color(red: 0.22, green: 0.31, blue: 0.45), lineWidth: 1.5)
                 }
         }
     }

@@ -10,13 +10,34 @@ import SwiftUI
 struct MainTabView: View {
     @State var selectedTab: Tabs = .pets
     @Binding var show: Bool
+    
+    
     var body: some View {
-        if selectedTab == .pets {
+        TabView {
+            ResumeView()
+                .tabItem {
+                    Image(systemName: "circle.grid.2x2")
+                    Text("Acompanhamento")
+                }
             MyPetsView()
-        } else if selectedTab == .ajustes {
-            SettingsView()
+                .tabItem {
+                    Image(systemName: "pawprint")
+                    Text("Meus pets")
+                }
+            ExploreView()
+                .tabItem {
+                    Image(systemName: "mappin.and.ellipse")
+                    Text("Explorar")
+                }
         }
-        CustomTabBar(selectedTab: $selectedTab)
+//        if selectedTab == .pets {
+//            MyPetsView()
+//        } else if selectedTab == .ajustes {
+//            SettingsView()
+//        } else if selectedTab == .resume {
+//            ResumeView()
+//        }
+//        CustomTabBar(selectedTab: $selectedTab)
     }
 }
 
@@ -26,8 +47,9 @@ struct MainTabView: View {
 }
 
 enum Tabs: Int {
-    case pets = 0
-    case ajustes = 1
+    case resume = 0
+    case pets = 1
+    case ajustes = 2
 }
 
 struct SettingsView: View {

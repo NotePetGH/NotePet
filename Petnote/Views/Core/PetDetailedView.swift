@@ -32,11 +32,11 @@ struct PetDetailedView: View {
                                                 .foregroundStyle(Color(red: 0.15, green: 0.79, blue: 0.59))
                                             Text("Saúde")
                                                 .foregroundStyle(.black)
-                                                .font(.system(size: 20))
+                                                .font(.system(size: 18))
                                         }
                                         
                                         Text("Vacinas, remédios e consultas")
-                                            .font(.system(size: 17))
+                                            .font(.system(size: 15))
                                             .foregroundStyle(Color(red: 0.47, green: 0.47, blue: 0.47))
                                     }
                                     
@@ -66,11 +66,11 @@ struct PetDetailedView: View {
                                                 .foregroundStyle(Color(red: 1, green: 0.65, blue: 0.2))
                                             Text("Atividade")
                                                 .foregroundStyle(.black)
-                                                .font(.system(size: 20))
+                                                .font(.system(size: 18))
                                         }
                                         
                                         Text("Registre suas caminhadas")
-                                            .font(.system(size: 17))
+                                            .font(.system(size: 15))
                                             .foregroundStyle(Color(red: 0.47, green: 0.47, blue: 0.47))
                                     }
                                     
@@ -87,7 +87,7 @@ struct PetDetailedView: View {
                         .background(Color(red: 0.98, green: 0.98, blue: 0.98))
                         .cornerRadius(30)
                         .padding(.horizontal, 20)
-                        .shadow(color: .black.opacity(0.15), radius: 15, x: 0, y: 4)
+                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
                         
                         
                     }
@@ -165,7 +165,7 @@ struct PetDetailedView: View {
                     Rectangle()
                         .fill(.ultraThinMaterial)
                         .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                        .shadow(color: .black.opacity(0.15), radius: 15, x: 0, y: 4)
+                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
                 )
                 .offset(y: 250)
                 .padding(20)

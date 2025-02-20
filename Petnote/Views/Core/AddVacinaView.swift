@@ -55,11 +55,11 @@ struct AddVacinaView: View {
                         
                         Image(systemName: "calendar")
                             .padding(.horizontal)
-                            .foregroundStyle(Color(red: 0.75, green: 0.49, blue: 0))
+                            .foregroundStyle(Color(red: 0.22, green: 0.31, blue: 0.45))
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 22)
-                            .stroke(Color(red: 1, green: 0.91, blue: 0.49), lineWidth: 1.5)
+                            .stroke(Color(red: 0.22, green: 0.31, blue: 0.45), lineWidth: 1.5)
                     }
                 }
                 

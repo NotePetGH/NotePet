@@ -14,24 +14,22 @@ struct PetCardView: View {
         Image(uiImage: imageURL)
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .frame(width: 160, height: 170)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .background(Color.clear)
+            .frame(width: 350, height: 420)
+            .clipShape(RoundedRectangle(cornerRadius: 40))
             .overlay {
                 VStack {
                     Spacer()
                     HStack {
                         Text(petName)
-                            .font(.system(size: 22))
+                            .font(.system(size: 24))
                         Spacer()
                     }
                 }
-                .padding(.vertical, 5)
-                .padding(.horizontal, 9)
+                .padding(15)
                 .font(.largeTitle)
                 .foregroundStyle(.white)
                 .fontWeight(.medium)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .clipShape(RoundedRectangle(cornerRadius: 40))
             }
     }
 }
