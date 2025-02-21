@@ -12,7 +12,7 @@ import SwiftData
 struct PetnoteApp: App {
     var body: some Scene {
         WindowGroup {
-            OnBoardingView()
+            MainTabView(show: .constant(true))
         }
         .modelContainer(for: Pet.self)
     }

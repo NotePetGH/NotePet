@@ -62,10 +62,11 @@ struct AddPetView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             
             HStack {
                 Text("Salvar")
+                    .font(.system(size: 17, weight: .bold))
                     .foregroundStyle(.white)
                 Spacer()
                 Text("Adicionar pet")
@@ -80,12 +81,10 @@ struct AddPetView: View {
                             dismiss()
                         }
                     }
-                    
-                    
                 } label: {
                     Text("Salvar")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(.black)
+                        .font(.system(size: 17, weight: .bold))
+                        .foregroundStyle(.accent)
                 }
                 
             }
@@ -94,7 +93,7 @@ struct AddPetView: View {
             
             // Photo Picker, campos de texto e pickers
             ScrollView {
-                VStack(spacing: 10) {
+                VStack(spacing: 20) {
                     // Camera Image
                     PhotosPicker(selection: $photoViewModel.imageSelection) {
                         if let selectedImage = photoViewModel.selectedImage {
@@ -104,95 +103,121 @@ struct AddPetView: View {
                                 .frame(width: 80, height: 80)
                                 .clipShape(Circle())
                         } else {
-                            ZStack {
-                                Image(systemName: "camera.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                                Image(systemName: "circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                                    .fontWeight(.thin)
+                            VStack {
+                                ZStack {
+                                    Image(systemName: "camera.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                    Image(systemName: "circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 80, height: 80)
+                                        .fontWeight(.thin)
+                                }
+                                .foregroundStyle(.accent)
+                                
+                                Text("Selecione uma foto")
+                                    .font(.subheadline)
                             }
-                            .foregroundStyle(Color(red: 0.22, green: 0.31, blue: 0.45))
                         }
                         
                     }
                     // Nome, data e pickers
                     VStack(spacing: 15) {
                         // Name Text Field
-                        TextFieldComponent(title: "Nome", textFieldTitle: "", spacing: 8, textInput: $name)
+                        TextFieldComponent(title: "Nome", textFieldTitle: "Digite o nome do pet", spacing: 5, textInput: $name)
+                    
                         
                         // Date Picker
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 5) {
                             Text("Data de nascimento")
                                 .fontWeight(.medium)
                                 .padding(.horizontal)
                             
                             HStack {
-                                DatePicker("\(birthdate.formatted(date: .long, time: .omitted))", selection: $birthdate, in: ...Date(), displayedComponents: .date)
-                                    .labelsHidden()
-                                    .padding()
+                                Text("Selecione a data")
+                                    .foregroundStyle(Color(.systemGray2))
+                                    .padding(.leading)
                                 
                                 Spacer()
                                 
-                                Image(systemName: "calendar")
-                                    .padding(.horizontal)
+                                DatePicker("\(birthdate.formatted(date: .long, time: .omitted))", selection: $birthdate, in: ...Date(), displayedComponents: .date)
+                                    .datePickerStyle(.compact)
+                                    .labelsHidden()
+                                    .foregroundStyle(.accent)
+                                    .padding()
                             }
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 22)
-                                    .stroke(Color(red: 0.22, green: 0.31, blue: 0.45), lineWidth: 1.5)
-                            }
+                            .padding(.vertical, -4)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
                             
                         }
-                        HStack {
+                        VStack(alignment: .leading, spacing: 5) {
                             Text("Animal")
-                                .font(.system(size: 18, weight: .semibold))
-                            Spacer()
-                            Picker("Animal", selection: $animal) {
-                                Text("Gato").tag(1)
-                                Text("Cachorro").tag(2)
-                            }
-                            .pickerStyle(.menu)
-                        }
-                        .padding()
-                        .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
-                        
-                        HStack {
-                            Text("Raça")
-                                .font(.system(size: 18, weight: .semibold))
-                            Spacer()
-                            Picker("Raça", selection: $breed) {
-                                if animal == 1 {
-                                    Text("Sem Raça Definida").tag(1)
-                                    Text("Persa").tag(2)
-                                } else if animal == 2 {
-                                    Text("Vira-lata").tag(1)
-                                    Text("Labrador").tag(2)
+                                .fontWeight(.medium)
+                                .padding(.horizontal)
+                            HStack {
+                                Text("Selecione o animal")
+                                    .foregroundStyle(Color(.systemGray2))
+                                Spacer()
+                                Picker("Animal", selection: $animal) {
+                                    Text("Gato").tag(1)
+                                    Text("Cachorro").tag(2)
                                 }
-                                
+                                .pickerStyle(.menu)
                             }
-                            .pickerStyle(.menu)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
                         }
-                        .padding()
-                        .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
                         
-                        HStack {
-                            Text("Sexo")
-                                .font(.system(size: 18, weight: .semibold))
-                            Spacer()
-                            Picker("Sexo", selection: $gender) {
-                                Text("Macho").tag(1)
-                                Text("Fêmea").tag(2)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Raça")
+                                .fontWeight(.medium)
+                                .padding(.horizontal)
+                            HStack {
+                                Text("Selecione a raça")
+                                    .foregroundStyle(Color(.systemGray2))
+                                Spacer()
+                                Picker("Raça", selection: $breed) {
+                                    if animal == 1 {
+                                        Text("SRD").tag(1)
+                                        Text("Persa").tag(2)
+                                    } else if animal == 2 {
+                                        Text("Vira-lata").tag(1)
+                                        Text("Labrador").tag(2)
+                                    }
+                                    
+                                }
+                                .pickerStyle(.menu)
                             }
-                            .pickerStyle(.menu)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
                         }
-                        .padding()
-                        .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Sexo")
+                                .fontWeight(.medium)
+                                .padding(.horizontal)
+                            HStack {
+                                Text("Selecione o sexo")
+                                    .foregroundStyle(Color(.systemGray2))
+                                Spacer()
+                                Picker("Sexo", selection: $gender) {
+                                    Text("Macho").tag(1)
+                                    Text("Fêmea").tag(2)
+                                }
+                                .pickerStyle(.menu)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                        }
                     }
                 }
                 .padding(.horizontal, 40)

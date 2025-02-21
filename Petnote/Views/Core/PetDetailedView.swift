@@ -14,7 +14,7 @@ struct PetDetailedView: View {
         NavigationStack {
             ZStack {
                 ScrollView {
-                    VStack(spacing: 190) {
+                    VStack(spacing: 80) {
                         cover
                         VStack(spacing: 25) {
                             NavigationLink {
@@ -148,17 +148,6 @@ struct PetDetailedView: View {
                     .font(.largeTitle.weight(.bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Divider()
-                
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Rotina")
-                        .font(.title2.weight(.semibold))
-                    
-                    
-                    Text("7:00 Passear\n8:00 Botar comida\n17:00 Botar comida")
-                        .font(.footnote)
-                    
-                }
             }
                 .padding(20)
                 .background(
@@ -167,7 +156,7 @@ struct PetDetailedView: View {
                         .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
                         .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
                 )
-                .offset(y: 250)
+                .offset(y: 200)
                 .padding(20)
             
             

@@ -8,14 +8,55 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = FitnessTrackerViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                Text("Fitness Tracker")
+                    .font(.largeTitle.weight(.bold))
+                    .padding()
+                if viewModel.isAuthorized {
+                    VStack {
+                        Text("This Week")
+                            .font(.title3)
+                        
+                        Text("Distance \(viewModel.distance)m")
+                        Text("Time \(viewModel.time)min")
+                        
+                        Button {
+                            Task {
+                                await viewModel.fetchData()
+                            }
+                        } label: {
+                            Text("Refresh")
+                        }
+                        .buttonStyle(.bordered)
+
+                    }
+                    
+                } else {
+                    VStack {
+                        Text("Health Kit access required!")
+                            .font(.headline)
+                            .foregroundStyle(.red)
+                        
+                        Button {
+                            Task {
+                                await viewModel.requestHealthKitAuthorization()
+                            }
+                        } label: {
+                            Text("Authorize HealthKit")
+                        }
+                        .buttonStyle(.borderedProminent)
+
+                    }
+                }
+            }
+            .onAppear {
+                
+            }
         }
-        .padding()
     }
 }
 

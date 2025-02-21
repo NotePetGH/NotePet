@@ -9,21 +9,18 @@ import SwiftUI
 import SwiftData
 
 struct ResumeView: View {
+    @StateObject private var viewModel = FitnessTrackerViewModel()
     @Query var pets: [Pet]
+    @State private var vacinasOrdenadas: [DoseDetalhada] = []
+    @AppStorage("isAuthorized") var isAuthorized: Bool = false
     
-    var vacinasComDosesOrdenadas: [DoseDetalhada] {
-        pets
-            .flatMap { pet in
-                pet.vacinas.flatMap { vacina in
-                    vacina.doses.map { dose in
-                        DoseDetalhada(nomeVacina: vacina.name, dose: dose, image: UIImage(data: pet.imageURL)!)
-                    }
-                }
-            }
-            .sorted { $0.dose.data < $1.dose.data }
-        }
-
-    
+    func calcCircleSize(distance: Int) -> Double {
+        let distanceDouble = Double(distance)
+        let size: Double = distanceDouble/12000 + 0.01
+        print(size)
+        return size
+        
+    }
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,7 +30,7 @@ struct ResumeView: View {
                         .font(.system(size: 28, weight: .semibold))
                     Spacer()
                     Circle()
-                        .frame(width: 50)
+                        .frame(width: 45)
                     
                 }
                 .padding(.horizontal)
@@ -45,11 +42,11 @@ struct ResumeView: View {
                         } label: {
                             VStack {
                                 HStack(alignment: .firstTextBaseline) {
-                                    Text("Essa semana")
+                                    Text("Atividade")
                                         .font(.system(size: 20, weight: .medium))
                                         .foregroundStyle(.black)
                                     
-                                    Text("16/02 - 23/02")
+                                    Text("Essa semana")
                                         .font(.system(size: 12))
                                         .foregroundStyle(.gray)
                                     Spacer()
@@ -63,11 +60,11 @@ struct ResumeView: View {
                                 HStack(spacing: 47) {
                                     ZStack {
                                         Circle()
-                                            .stroke(Color.clear.opacity(0.3), style: StrokeStyle(lineWidth: 8))
+                                            .stroke(Color.orange.opacity(0.1), style: StrokeStyle(lineWidth: 8))
                                             .frame(width: 75)
                                         
                                         Circle()
-                                            .trim(from: 0, to: 0.9)
+                                            .trim(from: 0, to: calcCircleSize(distance: viewModel.distance))
                                             .stroke(LinearGradient(colors: [Color(red: 1, green: 0.65, blue: 0.05), Color(red: 0.82, green: 0, blue: 0)], startPoint: .bottomTrailing, endPoint: .topLeading), style: StrokeStyle(lineWidth: 8, lineCap: .round))
                                             .frame(width: 75)
                                             .rotationEffect(.init(degrees: -90))
@@ -77,12 +74,31 @@ struct ResumeView: View {
                                             .frame(width: 30, height: 35)
                                             .foregroundStyle(LinearGradient(colors: [Color(red: 1, green: 0.65, blue: 0.05), Color(red: 0.82, green: 0, blue: 0)], startPoint: .topTrailing, endPoint: .bottomLeading))
                                     }
-                                    
-                                    VStack(spacing: 11) {
-                                        Text("3.250m percorridos")
-                                        Text("1,5h de caminhada")
+                                    if isAuthorized {
+                                        VStack(spacing: 11) {
+                                            Text("\(viewModel.distance)m percorridos")
+                                            Text("\(viewModel.time)min de caminhada")
+                                        }
+                                        .foregroundStyle(.black)
+                                        
+                                    } else {
+                                        VStack {
+                                            Text("Health Kit access required!")
+                                                .font(.headline)
+                                                .foregroundStyle(.red)
+                                            
+                                            Button {
+                                                Task {
+                                                    await viewModel.requestHealthKitAuthorization()
+                                                }
+                                            } label: {
+                                                Text("Authorize HealthKit")
+                                            }
+                                            .buttonStyle(.borderedProminent)
+                                            
+                                        }
                                     }
-                                    .foregroundStyle(.black)
+                                    
                                 }
                                 .padding(.vertical, 25)
                             }
@@ -112,15 +128,21 @@ struct ResumeView: View {
                                         Divider()
                                         
                                         VStack(spacing: 12) {
-                                            ForEach(vacinasComDosesOrdenadas) { vacina in
-                                                DoseDetalhadaRowView(dose: vacina)
+                                            if vacinasOrdenadas.isEmpty {
+                                                Text("Parece que você não adicionou uma próxima vacina!")
+                                                    .font(.caption)
+                                                    .foregroundStyle(.gray)
+                                            } else {
+                                                ForEach(vacinasOrdenadas) { vacina in
+                                                    DoseDetalhadaRowView(dose: vacina)
+                                                }
                                             }
                                         }
                                         .padding(.top, 9)
                                         
                                         Spacer()
                                     }
-                                    .frame(maxWidth: 170, minHeight: 200, maxHeight: 300)
+                                    .frame(maxWidth: 170, minHeight: 110, maxHeight: 300)
                                     .modifier(ItemModifier())
                                     .padding(.leading)
                                 }
@@ -141,12 +163,22 @@ struct ResumeView: View {
                                         
                                         Divider()
                                         
-                                        VStack(spacing: 12) {                                        }
+                                        VStack(spacing: 12) {
+                                            if vacinasOrdenadas.isEmpty {
+                                                Text("Parece que você não adicionou um remédio!")
+                                                    .font(.caption)
+                                                    .foregroundStyle(.gray)
+                                            } else {
+                                                ForEach(vacinasOrdenadas) { vacina in
+                                                    DoseDetalhadaRowView(dose: vacina)
+                                                }
+                                            }
+                                        }
                                         .padding(.top, 9)
                                         
                                         Spacer()
                                     }
-                                    .frame(maxWidth: 170, minHeight: 170, maxHeight: 170)
+                                    .frame(maxWidth: 170, minHeight: 100, maxHeight: 300)
                                     .modifier(ItemModifier())
                                     .padding(.leading)
                                 }
@@ -174,22 +206,55 @@ struct ResumeView: View {
                                         
                                         Divider()
                                         
-                                        ConsultaRowItemView()
-                                        ConsultaRowItemView()
+                                        VStack(spacing: 12) {
+                                            if vacinasOrdenadas.isEmpty {
+                                                Text("Parece que você não adicionou uma próxima consulta!")
+                                                    .multilineTextAlignment(.center)
+                                                    .font(.caption)
+                                                    .foregroundStyle(.gray)
+                                            } else {
+                                                ForEach(vacinasOrdenadas) { vacina in
+                                                    DoseDetalhadaRowView(dose: vacina)
+                                                }
+                                            }
+                                        }
+                                        .padding(.top, 9)
+                                        
                                         
                                         Spacer()
                                     }
-                                    .frame(maxWidth: 170, minHeight: 300, maxHeight: 300)
+                                    .frame(maxWidth: 170, minHeight: 110, maxHeight: 300)
                                     .modifier(ItemModifier())
                                     .padding(.trailing)
                                 }
+                                Rectangle().fill(.clear)
                             }
                         }
                     }
                 }
             }
         }
+        .onAppear {
+            if isAuthorized {
+                Task {
+                    await viewModel.fetchData()
+                }
+            }
+            atualizarVacinas()
+        }
     }
+    private func atualizarVacinas() {
+        vacinasOrdenadas = pets
+            .flatMap { pet in
+                pet.vacinas.flatMap { vacina in
+                    vacina.doses.map { dose in
+                        DoseDetalhada(nomeVacina: vacina.name, dose: dose, image: UIImage(data: pet.imageURL)!)
+                    }
+                }
+            }
+            .sorted { $0.dose.data < $1.dose.data }
+    }
+    
 }
 
 #Preview {
@@ -197,27 +262,6 @@ struct ResumeView: View {
         .modelContainer(for: Pet.self)
 }
 
-struct ItemModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-        .padding(11)
-        .background(Color(red: 0.98, green: 0.98, blue: 0.98))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: Color(red: 0.01, green: 0.01, blue: 0.01).opacity(0.07), radius: 2, x: 0, y: 2)
-    }
-}
 
-class DoseDetalhada: Identifiable {
-    var id = UUID()
-    var nomeVacina: String
-    var dose: Dose
-    var image: Data
-    
-    init(id: UUID = UUID(), nomeVacina: String, dose: Dose, image: UIImage) {
-        self.id = id
-        self.nomeVacina = nomeVacina
-        self.dose = dose
-        self.image = image.pngData()!
-    }
-    
-}
+
+

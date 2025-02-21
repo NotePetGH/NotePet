@@ -14,7 +14,7 @@ struct DoseDetalhadaRowView: View {
             Image(uiImage: UIImage(data: dose.image)!)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 20, height: 20)
+                .frame(width: 25, height: 25)
                 .clipShape(Circle())
             Text(dose.nomeVacina)
                 .font(.system(size: 14))

@@ -57,10 +57,9 @@ struct AddVacinaView: View {
                             .padding(.horizontal)
                             .foregroundStyle(Color(red: 0.22, green: 0.31, blue: 0.45))
                     }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 22)
-                            .stroke(Color(red: 0.22, green: 0.31, blue: 0.45), lineWidth: 1.5)
-                    }
+                    .padding(.vertical, -4)
+                    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 
                 // Lote da vacina
