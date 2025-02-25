@@ -29,7 +29,7 @@ class FitnessTrackerViewModel: ObservableObject {
     
     func fetchData() async {
         async let distance = healthKitManager.fetchLastWeekDistance()
-        async let time = healthKitManager.fetchLastWeekTime()
+        async let time = healthKitManager.fetchLastWeekWalkingTime()
         
         self.distance = await distance
         self.time = await time

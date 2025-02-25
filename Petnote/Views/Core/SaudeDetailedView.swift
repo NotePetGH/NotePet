@@ -21,29 +21,17 @@ struct SaudeDetailView: View {
             VStack {
                 HStack(spacing: 33) {
                     Text("Remédios")
-                        .font(.system(size: 14, weight: .medium))
-                        .padding(12)
-                        .foregroundStyle(selectedView == .remedios ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
-                        .background(selectedView == .remedios ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .modifier(SelectableButtonStyle(isSelected: selectedView == .remedios))
                         .onTapGesture {
                             selectedView = .remedios
                         }
                     Text("Vacinas")
-                        .font(.system(size: 14, weight: .medium))
-                        .padding(12)
-                        .foregroundStyle(selectedView == .vacinas ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
-                        .background(selectedView == .vacinas ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .modifier(SelectableButtonStyle(isSelected: selectedView == .vacinas))
                         .onTapGesture {
                             selectedView = .vacinas
                         }
                     Text("Consultas")
-                        .font(.system(size: 14, weight: .medium))
-                        .padding(12)
-                        .foregroundStyle(selectedView == .consultas ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
-                        .background(selectedView == .consultas ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .modifier(SelectableButtonStyle(isSelected: selectedView == .consultas))
                         .onTapGesture {
                             selectedView = .consultas
                         }
@@ -53,17 +41,50 @@ struct SaudeDetailView: View {
                 ScrollView {
                     Spacer().frame(height: 30)
                     VStack(spacing: 20) {
-                        if selectedView == .vacinas {
-                            ForEach(pet.vacinas) { vacina in
-                                VacinaItemView(vacina: vacina)
-                            }
-                        } else if selectedView == .consultas {
-                            ForEach(pet.consultas) { consulta in
-                                ConsultaItemView(consulta: consulta)
-                            }
-                        } else if selectedView == .remedios {
-                            ForEach(pet.remedios) { remedio in
-                                RemedioItemView(remedio: remedio)
+                        Group {
+                            switch selectedView {
+                            case .vacinas:
+                                if !pet.vacinas.isEmpty {
+                                    ForEach(pet.vacinas) { vacina in
+                                        NavigationLink {
+                                            EditVacinaView(vacina: vacina)
+                                        } label: {
+                                            VacinaItemView(vacina: vacina)
+                                        }
+                                    }
+                                } else {
+                                    Text("Nenhuma vacina adicionada")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                            case .consultas:
+                                if !pet.consultas.isEmpty {
+                                    ForEach(pet.consultas) { consulta in
+                                        NavigationLink {
+                                            EditConsultaView(consulta: consulta)
+                                        } label: {
+                                            ConsultaItemView(consulta: consulta)
+                                        }
+                                    }
+                                } else {
+                                    Text("Nenhuma consulta adicionada")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                            case .remedios:
+                                if !pet.remedios.isEmpty {
+                                    ForEach(pet.remedios) { remedio in
+                                        NavigationLink {
+                                            EditRemedioView(remedio: remedio)
+                                        } label: {
+                                            RemedioItemView(remedio: remedio)
+                                        }
+                                    }
+                                } else {
+                                    Text("Nenhum remédio adicionado")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
                             }
                         }
                         
@@ -75,51 +96,55 @@ struct SaudeDetailView: View {
             .navigationTitle("Saúde")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true) // Esconde o botão padrão
-                    .navigationBarItems(leading: Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                                .fontWeight(.semibold)
-                            Text("Voltar")
-                        }
-                    })
-            
-        }
-        .overlay(alignment: .bottomTrailing) {
-           
-            Button {
+            .navigationBarItems(leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                        .fontWeight(.semibold)
+                    Text("Voltar")
+                }
+            }, trailing: Button {
                 showSheet.toggle()
             } label: {
                 Image(systemName: "plus")
-                    .font(.title3.weight(.semibold))
+                    .font(.caption.weight(.semibold))
                     .foregroundStyle(.white)
-                    .padding(14)
+                    .padding(6)
                     .background(Color(red: 0.22, green: 0.31, blue: 0.45), in: Circle())
                     .padding(16)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .sheet(isPresented: $showSheet) {
-                if selectedView == .vacinas {
-                    AddVacinaView(pet: pet)
-                        .presentationDetents([.height(500)])
-                        .presentationDragIndicator(.visible)
-                } else if selectedView == .consultas {
-                    AddConsultaView(pet: pet)
-                        .presentationDetents([.height(500)])
-                        .presentationDragIndicator(.visible)
-                } else if selectedView == .remedios {
-                    AddRemedioView(pet: pet)
-                        .presentationDetents([.height(500)])
-                        .presentationDragIndicator(.visible)
-                }
-               
-                
-            }
+                .sheet(isPresented: $showSheet) {
+                    if selectedView == .vacinas {
+                        AddVacinaView(pet: pet)
+                            .presentationDetents([.height(500)])
+                            .presentationDragIndicator(.visible)
+                    } else if selectedView == .consultas {
+                        AddConsultaView(pet: pet)
+                            .presentationDetents([.height(500)])
+                            .presentationDragIndicator(.visible)
+                    } else if selectedView == .remedios {
+                        AddRemedioView(pet: pet)
+                            .presentationDetents([.height(500)])
+                            .presentationDragIndicator(.visible)
+                    }
+                })
         }
     }
 }
 
+struct SelectableButtonStyle: ViewModifier {
+    var isSelected: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 14, weight: .medium))
+            .padding(12)
+            .foregroundStyle(isSelected ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
+            .background(isSelected ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+}
 #Preview {
     SaudeDetailView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: []))
 }

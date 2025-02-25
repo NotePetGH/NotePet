@@ -47,15 +47,15 @@ struct AddVacinaView: View {
                         .fontWeight(.medium)
                         .padding(.horizontal)
                     HStack {
+                        Text("Data de início")
+                            .padding(.leading)
+                            .foregroundStyle(.tertiary)
+                        Spacer()
                         DatePicker("\(data.formatted(date: .long, time: .omitted))", selection: $data, in: ...Date(), displayedComponents: .date)
                             .labelsHidden()
                             .padding()
                         
-                        Spacer()
                         
-                        Image(systemName: "calendar")
-                            .padding(.horizontal)
-                            .foregroundStyle(Color(red: 0.22, green: 0.31, blue: 0.45))
                     }
                     .padding(.vertical, -4)
                     .background(Color(red: 0.95, green: 0.95, blue: 0.95))

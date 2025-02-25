@@ -10,19 +10,21 @@ import SwiftUI
 struct ConsultaItemView: View {
     var consulta: Consulta
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(consulta.title)
-                .font(.system(size: 20, weight: .regular))
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(consulta.location)
-                Text(consulta.data.formatted(date: .numeric, time: .standard))
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(consulta.title)
+                    .font(.system(size: 20, weight: .regular))
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(consulta.location)
+                    Text(consulta.data.formatted(date: .numeric, time: .standard))
+                    
+                }
+                .font(.system(size: 15))
                 
             }
-            .font(.system(size: 15))
-            
-            
-            
+            Spacer()
+            Image(systemName: "chevron.right")
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)

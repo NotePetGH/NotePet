@@ -88,11 +88,7 @@ struct PetDetailedView: View {
                         .cornerRadius(30)
                         .padding(.horizontal, 20)
                         .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
-                        
-                        
                     }
-                    
-                    
                 }
                 .background(Color(.white))
                 .ignoresSafeArea()
@@ -100,7 +96,7 @@ struct PetDetailedView: View {
                 Button {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Image(systemName: "xmark")
+                    Image(systemName: "chevron.left")
                         .font(.body.weight(.bold))
                         .foregroundStyle(Color("cinza"))
                         .padding(8)
@@ -113,15 +109,6 @@ struct PetDetailedView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-//                .navigationBarItems(leading: Button(action: {
-//                    presentationMode.wrappedValue.dismiss()
-//                }) {
-//                    HStack {
-//                        Image(systemName: "chevron.left")
-//                            .fontWeight(.semibold)
-//                        Text("Voltar")
-//                    }
-//                })
     }
     
     var cover: some View {

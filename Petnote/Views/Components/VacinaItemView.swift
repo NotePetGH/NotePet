@@ -10,19 +10,22 @@ import SwiftUI
 struct VacinaItemView: View {
     var vacina: Vacina
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(vacina.name)
-                .font(.system(size: 20, weight: .regular))
-            
-            ForEach(vacina.doses) { dose in
-                HStack(spacing: 8) {
-                    Text(dose.data.formatted(date: .numeric, time: .omitted))
-                    Image(systemName: dose.isPending ? "exclamationmark.circle.fill" : "checkmark.circle.fill")
-                        .foregroundStyle(Color(red: 0.2, green: 0.74, blue: 0.17))
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(vacina.name)
+                    .font(.system(size: 20, weight: .regular))
+                
+                ForEach(vacina.doses) { dose in
+                    HStack(spacing: 8) {
+                        Text(dose.data.formatted(date: .numeric, time: .omitted))
+                        Image(systemName: dose.isPending ? "exclamationmark.circle.fill" : "checkmark.circle.fill")
+                            .foregroundStyle(Color(red: 0.2, green: 0.74, blue: 0.17))
+                    }
                 }
             }
             
-            
+            Spacer()
+            Image(systemName: "chevron.right")
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)

@@ -10,16 +10,21 @@ import SwiftUI
 struct RemedioItemView: View {
     var remedio: Remedio
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(remedio.name)
-                .font(.system(size: 20, weight: .regular))
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(remedio.startDate.formatted(date: .numeric, time: .standard))
-                Text("\(remedio.dose) comprimidos")
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(remedio.name)
+                    .font(.system(size: 20, weight: .regular))
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(remedio.startDate.formatted(date: .numeric, time: .shortened))
+                    Text("\(remedio.dose) comprimidos")
+                    
+                }
+                .font(.system(size: 15))
                 
             }
-            .font(.system(size: 15))
+            Spacer()
+            Image(systemName: "chevron.right")
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -31,5 +36,5 @@ struct RemedioItemView: View {
 }
 
 #Preview {
-    RemedioItemView(remedio: Remedio(name: "Gardernal", unity: "g", dose: 1, frequency: DateInterval(start: .now, duration: 3600), startDate: .now, interval: DateInterval(start: .now, duration: 3600), intervalBetweenDays: DateInterval(start: .now, duration: 3600)))
+    RemedioItemView(remedio: Remedio(name: "Gadernal", dose: "10mg", startDate: .now, endDate: .distantFuture, quantityPerDay: "2"))
 }

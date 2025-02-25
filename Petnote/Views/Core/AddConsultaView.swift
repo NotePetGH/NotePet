@@ -38,29 +38,29 @@ struct AddConsultaView: View {
             
             
             VStack(spacing: 12) {
-                // Nome da vacina
+                // Nome da consulta
                 TextFieldComponent(title: "Título", textFieldTitle: "Digite o título da consulta", spacing: 5, textInput: $title)
                 
-                // Data da vacina
+                // Data da consulta
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Data")
                         .fontWeight(.medium)
                         .padding(.horizontal)
                     HStack {
-                        DatePicker("\(data.formatted(date: .long, time: .omitted))", selection: $data, in: ...Date(), displayedComponents: [.date, .hourAndMinute])
-                            .labelsHidden()
-                            .padding()
+                        Text("Selecione data e hora")
+                            .font(.footnote)
+                            .foregroundStyle(Color(.systemGray2))
+                            .padding(.leading)
                         
                         Spacer()
                         
-                        Image(systemName: "calendar")
-                            .padding(.horizontal)
-                            .foregroundStyle(Color(red: 0.75, green: 0.49, blue: 0))
+                        DatePicker("\(data.formatted(date: .long, time: .omitted))", selection: $data, in: ...Date(), displayedComponents: [.date, .hourAndMinute])
+                            .labelsHidden()
+                            .padding()
                     }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 22)
-                            .stroke(Color(red: 1, green: 0.91, blue: 0.49), lineWidth: 1.5)
-                    }
+                    .padding(.vertical, -4)
+                    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 
                 // Local da consulta

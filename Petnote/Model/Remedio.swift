@@ -12,20 +12,16 @@ import SwiftData
 @Model
 class Remedio {
     var name: String
-    var unity: String
-    var dose: Int
-    var frequency: DateInterval
+    var dose: String
     var startDate: Date
-    var interval: DateInterval
-    var intervalBetweenDays: DateInterval
+    var endDate: Date
+    var quantityPerDay: String
     
-    init(name: String, unity: String, dose: Int, frequency: DateInterval, startDate: Date, interval: DateInterval, intervalBetweenDays: DateInterval) {
+    init(name: String, dose: String, startDate: Date, endDate: Date, quantityPerDay: String) {
         self.name = name
-        self.unity = unity
         self.dose = dose
-        self.frequency = frequency
         self.startDate = startDate
-        self.interval = interval
-        self.intervalBetweenDays = intervalBetweenDays
+        self.endDate = endDate
+        self.quantityPerDay = quantityPerDay
     }
 }

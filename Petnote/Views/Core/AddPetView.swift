@@ -89,7 +89,7 @@ struct AddPetView: View {
                 
             }
             .padding(.horizontal, 16)
-            .padding(.top, 18)
+            .padding(.top, 25)
             
             // Photo Picker, campos de texto e pickers
             ScrollView {
@@ -150,7 +150,7 @@ struct AddPetView: View {
                             }
                             .padding(.vertical, -4)
                             .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                             
                         }
                         VStack(alignment: .leading, spacing: 5) {
@@ -170,7 +170,7 @@ struct AddPetView: View {
                             .padding(.horizontal)
                             .padding(.vertical, 10)
                             .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                         }
                         
                         VStack(alignment: .leading, spacing: 5) {
@@ -196,7 +196,7 @@ struct AddPetView: View {
                             .padding(.horizontal)
                             .padding(.vertical, 10)
                             .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                         }
                         
                         VStack(alignment: .leading, spacing: 5) {
@@ -216,7 +216,7 @@ struct AddPetView: View {
                             .padding(.horizontal)
                             .padding(.vertical, 10)
                             .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                         }
                     }
                 }

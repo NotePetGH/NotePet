@@ -21,7 +21,7 @@ struct TextFieldComponent: View {
             TextField(textFieldTitle, text: $textInput)
                 .padding()
                 .background(Color(red: 0.95, green: 0.95, blue: 0.95))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
         }
     }
 }
