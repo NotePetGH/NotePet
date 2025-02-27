@@ -33,6 +33,6 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView(show: .constant(true))
-        .modelContainer(for: Pet.self)
+        .modelContainer(for: Pet.self, inMemory: true)
 }
 

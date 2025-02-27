@@ -115,5 +115,5 @@ struct AddRemedioView: View {
 }
 
 #Preview {
-    AddRemedioView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: []))
+    AddRemedioView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: [], caminhadas: []))
 }

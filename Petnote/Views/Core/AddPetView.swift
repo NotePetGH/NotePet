@@ -75,9 +75,10 @@ struct AddPetView: View {
                 
                 Button {
                     if let selectedImage = photoViewModel.selectedImage {
-                        let pet = Pet(name: name, age: Int(birthdate.timeIntervalSinceNow / -31536000), imageURL: selectedImage, animal: convertAnimal(animal), gender: convertGender(gender), vacinas: [], consultas: [], remedios: [])
+                        let pet = Pet(name: name, age: Int(birthdate.timeIntervalSinceNow / -31536000), imageURL: selectedImage, animal: convertAnimal(animal), gender: convertGender(gender), vacinas: [], consultas: [], remedios: [], caminhadas: [])
                         withAnimation(.snappy) {
                             modelContext.insert(pet)
+                            try? modelContext.save()
                             dismiss()
                         }
                     }

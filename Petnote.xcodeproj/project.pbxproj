@@ -416,6 +416,9 @@
 				INFOPLIST_FILE = Petnote/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses HealthKit to show activity with your pets. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app updates your fitness data.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Precisamos da sua localização mesmo quando o app estiver em segundo plano.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Este app usa sua localização para rastrear caminhadas mesmo quando em segundo plano.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Este app precisa acessar sua localização para rastrear caminhadas.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +452,9 @@
 				INFOPLIST_FILE = Petnote/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses HealthKit to show activity with your pets. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app updates your fitness data.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Precisamos da sua localização mesmo quando o app estiver em segundo plano.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Este app usa sua localização para rastrear caminhadas mesmo quando em segundo plano.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Este app precisa acessar sua localização para rastrear caminhadas.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

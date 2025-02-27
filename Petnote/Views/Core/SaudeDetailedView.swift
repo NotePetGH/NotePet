@@ -19,7 +19,7 @@ struct SaudeDetailView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack(spacing: 33) {
+                HStack(spacing: 40) {
                     Text("Remédios")
                         .modifier(SelectableButtonStyle(isSelected: selectedView == .remedios))
                         .onTapGesture {
@@ -112,7 +112,6 @@ struct SaudeDetailView: View {
                     .foregroundStyle(.white)
                     .padding(6)
                     .background(Color(red: 0.22, green: 0.31, blue: 0.45), in: Circle())
-                    .padding(16)
             }
                 .sheet(isPresented: $showSheet) {
                     if selectedView == .vacinas {
@@ -142,9 +141,9 @@ struct SelectableButtonStyle: ViewModifier {
             .padding(12)
             .foregroundStyle(isSelected ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
             .background(isSelected ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
-            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .clipShape(RoundedRectangle(cornerRadius: 50))
     }
 }
 #Preview {
-    SaudeDetailView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: []))
+    SaudeDetailView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: [], caminhadas: []))
 }

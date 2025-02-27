@@ -13,7 +13,6 @@ struct MyPetsView: View {
     @State var showSheet = false
     @Environment(\.modelContext) var modelContext
     @Query var pets: [Pet]
-    @State var scrollPosition: Int? = nil
     var body: some View {
         NavigationStack {
             VStack {
@@ -49,7 +48,6 @@ struct MyPetsView: View {
                     .scrollTargetBehavior(.viewAligned)
                     .scrollIndicators(.hidden)
                     .scrollBounceBehavior(.basedOnSize)
-                    .animation(.smooth, value: scrollPosition)
                     
                 } else {
                     ScrollView {
@@ -63,27 +61,28 @@ struct MyPetsView: View {
                                 .multilineTextAlignment(.center)
                                 .foregroundStyle(.gray)
                                 .font(.body)
-                            Button {
-                                showSheet.toggle()
-                            } label: {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 20, weight: .medium))
-                                    .foregroundStyle(.white)
-                                    .padding()
-                                    .background(.accent)
-                                    .clipShape(Circle())
-                                    .padding(.top, 40)
-                                    
-                            }
-                            .sheet(isPresented: $showSheet) {
-                                AddPetView()
-                                    .presentationDetents([.height(600)])
-                                    .presentationDragIndicator(.visible)
-                                
-                            }
+                            
                         }
                     }
                         
+                }
+                Button {
+                    showSheet.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(.accent)
+                        .clipShape(Circle())
+                        .padding(.top, 40)
+                        
+                }
+                .sheet(isPresented: $showSheet) {
+                    AddPetView()
+                        .presentationDetents([.height(600)])
+                        .presentationDragIndicator(.visible)
+                    
                 }
                 
                 Spacer()

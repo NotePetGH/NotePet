@@ -25,11 +25,11 @@ struct PetDetailedView: View {
                                     VStack(alignment: .leading) {
                                         //Imagem e título
                                         HStack {
-                                            Image(systemName: "heart.circle")
+                                            Image(systemName: "heart")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 24, height: 24)
-                                                .foregroundStyle(Color(red: 0.15, green: 0.79, blue: 0.59))
+                                                .frame(width: 22, height: 22)
+                                                .foregroundStyle(.red)
                                             Text("Saúde")
                                                 .foregroundStyle(.black)
                                                 .font(.system(size: 18))
@@ -52,7 +52,7 @@ struct PetDetailedView: View {
                                 .padding(.horizontal, 15)
                             
                             NavigationLink {
-                                Text("Oi")
+                                AtividadeDetailedView(pet: pet)
                             } label: {
                                 HStack {
                                     // Vstack da esquerda
@@ -62,7 +62,7 @@ struct PetDetailedView: View {
                                             Image(systemName: "point.bottomleft.forward.to.arrow.triangle.uturn.scurvepath.fill")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 24, height: 24)
+                                                .frame(width: 22, height: 22)
                                                 .foregroundStyle(Color(red: 1, green: 0.65, blue: 0.2))
                                             Text("Atividade")
                                                 .foregroundStyle(.black)
@@ -87,7 +87,7 @@ struct PetDetailedView: View {
                         .background(Color(red: 0.98, green: 0.98, blue: 0.98))
                         .cornerRadius(30)
                         .padding(.horizontal, 20)
-                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
+                        .shadow(color: .black.opacity(0.08), radius: 5, x: 0, y: 2)
                     }
                 }
                 .background(Color(.white))
@@ -153,5 +153,5 @@ struct PetDetailedView: View {
 
 
 #Preview {
-    PetDetailedView(pet: Pet(name: "Lia", age: 4, imageURL: .lia, animal: "Gata", gender: "Fêmea", vacinas: [], consultas: [], remedios: []))
+    PetDetailedView(pet: Pet(name: "Lia", age: 4, imageURL: .lia, animal: "Gata", gender: "Fêmea", vacinas: [], consultas: [], remedios: [], caminhadas: []))
 }

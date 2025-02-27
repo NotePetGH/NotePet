@@ -77,6 +77,6 @@ struct AddVacinaView: View {
 }
 
 #Preview {
-    AddVacinaView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: []))
+    AddVacinaView(pet: Pet(name: "Mite", age: 1, imageURL: .mite, animal: "Gato", gender: "Macho", vacinas: [], consultas: [], remedios: [], caminhadas: []))
 }
 

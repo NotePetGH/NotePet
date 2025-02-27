@@ -20,8 +20,9 @@ class Pet: Identifiable {
     var vacinas: [Vacina]
     var consultas: [Consulta]
     var remedios: [Remedio]
+    var caminhadas: [Caminhada]
     
-    init(name: String, age: Int, imageURL: UIImage, animal: String, gender: String, vacinas: [Vacina], consultas: [Consulta], remedios: [Remedio]) {
+    init(name: String, age: Int, imageURL: UIImage, animal: String, gender: String, vacinas: [Vacina], consultas: [Consulta], remedios: [Remedio], caminhadas: [Caminhada]) {
         self.name = name
         self.age = age
         self.imageURL = imageURL.pngData()!
@@ -30,5 +31,6 @@ class Pet: Identifiable {
         self.vacinas = vacinas
         self.consultas = consultas
         self.remedios = remedios
+        self.caminhadas = caminhadas
     }
 }
