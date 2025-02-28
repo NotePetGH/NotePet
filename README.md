@@ -31,11 +31,11 @@
 
 <div>
     
-<img width="80" alt="PHOTO-2025-02-28-11-47-04 1" src="https://github.com/user-attachments/assets/9d772dd7-bed5-4d21-9d06-932dcbb165f7" />
+<img width="80" alt="PHOTO-2025-02-28-11-52-35 1" src="https://github.com/user-attachments/assets/484b1e4a-9cf9-4b3c-bbec-99aa440942de" />
 
 #### Ana Luiza Andrade
 
-<img width="80" alt="PHOTO-2025-02-28-11-52-35 1" src="https://github.com/user-attachments/assets/484b1e4a-9cf9-4b3c-bbec-99aa440942de" />
+<img width="80" alt="PHOTO-2025-02-28-11-47-04 1" src="https://github.com/user-attachments/assets/9d772dd7-bed5-4d21-9d06-932dcbb165f7" />
 
 #### Francisco Thiago Cordeiro
 
