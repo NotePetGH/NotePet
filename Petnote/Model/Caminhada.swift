@@ -10,7 +10,7 @@ import SwiftData
 import MapKit
 
 @Model
-class Caminhada {
+class Caminhada: Identifiable {
     var title: String
     var distance: Double
     var time: TimeInterval

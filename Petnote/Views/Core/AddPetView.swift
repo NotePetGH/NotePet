@@ -65,9 +65,13 @@ struct AddPetView: View {
         VStack(spacing: 30) {
             
             HStack {
-                Text("Salvar")
-                    .font(.system(size: 17, weight: .bold))
-                    .foregroundStyle(.white)
+                Button{
+                    dismiss()
+                } label: {
+                    Text("Fechar")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.black)
+                }
                 Spacer()
                 Text("Adicionar pet")
                     .font(.system(size: 17, weight: .semibold))
@@ -84,8 +88,8 @@ struct AddPetView: View {
                     }
                 } label: {
                     Text("Salvar")
-                        .font(.system(size: 17, weight: .bold))
-                        .foregroundStyle(.accent)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.black)
                 }
                 
             }

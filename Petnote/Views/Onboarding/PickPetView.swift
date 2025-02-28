@@ -7,60 +7,91 @@
 import SwiftUI
 import SwiftData
 
+enum SelectedAnimal: String {
+    case cachorro = "Cachorro"
+    case gato =  "Gato"
+    case none =  "Nenhuma"
+}
+
 struct PickPetView: View {
-    @State private var showTabView = false
+    @State var selectedAnimal: SelectedAnimal = .none
     var body: some View {
-        if showTabView {
-            MainTabView(show: $showTabView)
-                .navigationBarBackButtonHidden()
-        } else {
-            NavigationStack {
-                VStack(spacing: 180) {
-                        Text("Qual seu bichinho?")
-                            .font(.system(size: 28, weight: .medium))
-                            .multilineTextAlignment(.center)
+        NavigationStack {
+            VStack(spacing: 180) {
+                Text("Qual seu bichinho?")
+                    .font(.system(size: 28, weight: .medium))
+                    .multilineTextAlignment(.center)
+                
+                HStack(spacing: 17) {
+                    VStack {
+                        ZStack {
+                            Image(.cachorro)
+                                .resizable()
+                                .frame(width: 125, height: 125)
+                            Circle()
+                                .stroke(selectedAnimal == .cachorro ? Color.blue : Color.clear, style: StrokeStyle(lineWidth: 5))
+                                .frame(width: 125, height: 125)
+                            
+                        }
                         
-                        HStack(spacing: 17) {
-                            VStack {
-                                Image(.cachorro)
-                                    .resizable()
-                                    .frame(width: 125, height: 125)
-                                
-                                Text("Cachorro")
-                                    .font(.system(size: 20, weight: .medium))
-                            }
-                            VStack {
-                                Image(.gato)
-                                    .resizable()
-                                    .frame(width: 125, height: 125)
-                                
-                                Text("Gato")
-                                    .font(.system(size: 20, weight: .medium))
-                            }
-                        }
-                    
-                    Button {
+                        
+                        Text("Cachorro")
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .onTapGesture {
                         withAnimation {
-                            showTabView.toggle()
+                            selectedAnimal = .cachorro
                         }
+                    }
+                    VStack {
+                        ZStack {
+                            Image(.gato)
+                                .resizable()
+                                .frame(width: 125, height: 125)
+                            Circle()
+                                .stroke(selectedAnimal == .gato ? Color.blue : Color.clear, style: StrokeStyle(lineWidth: 5))
+                                .frame(width: 125, height: 125)
+                        }
+                        
+                        Text("Gato")
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .onTapGesture {
+                        withAnimation {
+                            selectedAnimal = .gato
+                        }
+                    }
+                }
+                
+                if selectedAnimal == .none {
+                    Text("Continuar")
+                        .font(.system(size: 18, weight: .medium))
+                        .frame(width: 300, height: 50)
+                        .foregroundStyle(.black)
+                        .background(Color(.systemGray5))
+                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                } else {
+                    NavigationLink {
+                        if selectedAnimal == .gato {
+                            PickCatBreedView(selectedAnimal: selectedAnimal)
+                        } else if selectedAnimal == .cachorro {
+                            PickDogBreedView(selectedAnimal: selectedAnimal)
+                        }
+                        
                     } label: {
                         Text("Continuar")
                             .font(.system(size: 18, weight: .medium))
                             .frame(width: 300, height: 50)
-                            .foregroundStyle(.black)
-                            .background(Color(red: 1, green: 0.91, blue: 0.49))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 50)
-                                    .inset(by: 0.75)
-                                    .stroke(Color(red: 1, green: 0.72, blue: 0.29), lineWidth: 1.5)
-                            }
+                            .foregroundStyle(.white)
+                            .background(.accent)
                             .clipShape(RoundedRectangle(cornerRadius: 40))
                     }
-                    
                 }
+                
             }
         }
-       
+        
+        
     }
 }
 

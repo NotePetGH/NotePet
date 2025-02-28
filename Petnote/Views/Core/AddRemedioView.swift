@@ -20,8 +20,13 @@ struct AddRemedioView: View {
         VStack {
             // Barra superior
             HStack {
-                Text("Salvar")
-                    .foregroundStyle(.white)
+                Button{
+                    dismiss()
+                } label: {
+                    Text("Fechar")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.black)
+                }
                 Spacer()
                 Text("Adicionar remédio")
                     .font(.system(size: 17, weight: .semibold))

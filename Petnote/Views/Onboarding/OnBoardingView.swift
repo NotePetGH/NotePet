@@ -12,13 +12,6 @@ struct OnBoardingView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                HStack {
-                    Spacer()
-                    Text("Pular")
-                        .foregroundStyle(.orange)
-                        .bold()
-                }
-                .padding(.horizontal)
                 
                 VStack(spacing: 56) {
                     Text("Gerencie a vida do seu bichinho em um só lugar")

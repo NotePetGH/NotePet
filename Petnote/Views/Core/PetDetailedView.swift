@@ -14,7 +14,7 @@ struct PetDetailedView: View {
         NavigationStack {
             ZStack {
                 ScrollView {
-                    VStack(spacing: 80) {
+                    VStack(spacing: 100) {
                         cover
                         VStack(spacing: 25) {
                             NavigationLink {
@@ -45,7 +45,7 @@ struct PetDetailedView: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.5))
                                 }
-                                .padding(.horizontal, 37)
+                                .padding(.horizontal, 30)
                             }
                             
                             Divider()
@@ -79,36 +79,34 @@ struct PetDetailedView: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.5))
                                 }
-                                .padding(.horizontal, 37)
+                                .padding(.horizontal, 30)
                             }
                            
                         }
-                        .frame(height: 220)
-                        .background(Color(red: 0.98, green: 0.98, blue: 0.98))
+                        .frame(height: 210)
+                        .background(.ultraThinMaterial)
                         .cornerRadius(30)
                         .padding(.horizontal, 20)
-                        .shadow(color: .black.opacity(0.08), radius: 5, x: 0, y: 2)
                     }
                 }
                 .background(Color(.white))
                 .ignoresSafeArea()
                 
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.body.weight(.bold))
-                        .foregroundStyle(Color("cinza"))
-                        .padding(8)
-                        .background(.ultraThinMaterial, in: Circle())
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 50)
-                .ignoresSafeArea()
+//                Button {
+//                    presentationMode.wrappedValue.dismiss()
+//                } label: {
+//                    Image(systemName: "chevron.left")
+//                        .font(.body.weight(.bold))
+//                        .foregroundStyle(Color("cinza"))
+//                        .padding(8)
+//                        .background(.ultraThinMaterial, in: Circle())
+//                }
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+//                .padding(.horizontal, 20)
+//                .padding(.vertical, 50)
+//                .ignoresSafeArea()
             }
         }
-        .navigationBarBackButtonHidden(true)
     }
     
     var cover: some View {
@@ -124,24 +122,29 @@ struct PetDetailedView: View {
                 .aspectRatio(contentMode: .fill)
         )
         .mask (
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
         )
         .overlay(
-            VStack(alignment: .leading, spacing: 12) {
-                
-                Text("\(pet.animal) - \(pet.age) anos".uppercased())
-                    .font(.footnote.weight(.semibold))
+            VStack(alignment: .leading, spacing: 0) {
                 Text(pet.name)
                     .font(.largeTitle.weight(.bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                Text("\(pet.age) anos")
+                    .font(.title3.weight(.medium))
+                    .foregroundStyle(Color(red: 0, green: 0.35, blue: 0.49))
+                    .padding(.top,5)
+                Text(pet.animal)
+                    .font(.title3.weight(.medium))
+                    .foregroundStyle(Color(red: 0, green: 0.35, blue: 0.49))
+                    
+                
                 
             }
                 .padding(20)
                 .background(
                     Rectangle()
                         .fill(.ultraThinMaterial)
-                        .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
+                        .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 )
                 .offset(y: 200)
                 .padding(20)

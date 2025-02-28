@@ -17,8 +17,13 @@ struct AddVacinaView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Salvar")
-                    .foregroundStyle(.white)
+                Button{
+                    dismiss()
+                } label: {
+                    Text("Fechar")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.black)
+                }
                 Spacer()
                 Text("Adicionar vacina")
                     .font(.system(size: 17, weight: .semibold))

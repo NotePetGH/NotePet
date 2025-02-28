@@ -66,28 +66,26 @@ struct MyPetsView: View {
                     }
                         
                 }
-                Button {
-                    showSheet.toggle()
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 20, weight: .medium))
-                        .foregroundStyle(.white)
-                        .padding()
-                        .background(.accent)
-                        .clipShape(Circle())
-                        .padding(.top, 40)
-                        
-                }
-                .sheet(isPresented: $showSheet) {
-                    AddPetView()
-                        .presentationDetents([.height(600)])
-                        .presentationDragIndicator(.visible)
-                    
-                }
+                
                 
                 Spacer()
                 
             }
+            .sheet(isPresented: $showSheet) {
+                AddPetView()
+                    .presentationDetents([.height(600)])
+                    .presentationDragIndicator(.visible)
+                
+            }
+            .navigationBarItems(trailing: Button {
+                showSheet.toggle()
+            } label: {
+                Image(systemName: "plus")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(6)
+                    .background(Color(red: 0.22, green: 0.31, blue: 0.45), in: Circle())
+            })
             .navigationTitle("Meus bichos")
         }
     }

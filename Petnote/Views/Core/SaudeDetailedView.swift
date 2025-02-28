@@ -19,7 +19,7 @@ struct SaudeDetailView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack(spacing: 40) {
+                HStack(spacing: 30) {
                     Text("Remédios")
                         .modifier(SelectableButtonStyle(isSelected: selectedView == .remedios))
                         .onTapGesture {
@@ -134,13 +134,14 @@ struct SaudeDetailView: View {
 
 struct SelectableButtonStyle: ViewModifier {
     var isSelected: Bool
-    
+    var frameWidth: CGFloat = 90
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 14, weight: .medium))
-            .padding(12)
+            .frame(width: frameWidth)
+            .font(.system(size: 16, weight: .medium))
+            .padding(.vertical, 12)
             .foregroundStyle(isSelected ? Color(.white) : Color(red: 0.22, green: 0.31, blue: 0.45))
-            .background(isSelected ? Color(red: 0.22, green: 0.31, blue: 0.45) : Color(red: 0.98, green: 0.98, blue: 0.98))
+            .background(isSelected ? Color(red: 0.18, green: 0.6, blue: 0.77) : Color(red: 0.98, green: 0.98, blue: 0.98))
             .clipShape(RoundedRectangle(cornerRadius: 50))
     }
 }

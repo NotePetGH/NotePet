@@ -21,12 +21,11 @@ struct PetCardView: View {
                     Spacer()
                     HStack {
                         Text(petName)
-                            .font(.system(size: 24))
+                            .font(.system(size: 28))
                         Spacer()
                     }
                 }
-                .padding(15)
-                .font(.largeTitle)
+                .padding(20)
                 .foregroundStyle(.white)
                 .fontWeight(.medium)
                 .clipShape(RoundedRectangle(cornerRadius: 40))

@@ -15,6 +15,7 @@ class ResumeViewModel: ObservableObject {
     @Published var consultasOrdenadas: [ConsultaDetalhada] = []
     @Published var vacinasOrdenadas: [DoseDetalhada] = []
     @Published var remediosOrdenados: [RemedioDetalhado] = []
+    @Published var caminhadasNaSemana = 0
     @Published var isAuthorized: Bool = false
     
     func atualizarVacinas(pets: [Pet]) async {
@@ -97,6 +98,55 @@ class ResumeViewModel: ObservableObject {
         }
         DispatchQueue.main.async {
             self.tempoTotal = tempo
+        }
+    }
+    func caminhadasDeHoje(pets: [Pet]) async -> [Caminhada]  {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        var caminhadasHoje: [Caminhada] = []
+
+        for pet in pets {
+            let caminhadasDoPetHoje = pet.caminhadas.filter { caminhada in
+                let caminhadaDate = calendar.startOfDay(for: caminhada.date)
+                return caminhadaDate == today
+            }
+            caminhadasHoje.append(contentsOf: caminhadasDoPetHoje)
+        }
+
+        return caminhadasHoje
+    }
+    
+    func distanciaPercorridaHoje(pets: [Pet]) async {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        for pet in pets {
+            let distanciaTotal = pet.caminhadas
+                .filter { calendar.startOfDay(for: $0.date) == today }
+                .reduce(0) { $0 + $1.distance }
+            pet.distanciaHoje += Int(distanciaTotal)
+        }
+    }
+    
+    func caminhadasNaSemana(pets: [Pet]) async {
+        let calendar = Calendar.current
+        let today = Date()
+
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+
+        let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek)!
+
+        let diasComCaminhadas = Set(pets.flatMap { pet in
+            pet.caminhadas
+                .filter { caminhada in
+                    let dataCaminhada = calendar.startOfDay(for: caminhada.date)
+                    return dataCaminhada >= startOfWeek && dataCaminhada <= endOfWeek
+                }
+                .map { calendar.startOfDay(for: $0.date) }
+        }).count
+        
+        DispatchQueue.main.async {
+            self.caminhadasNaSemana = diasComCaminhadas
         }
     }
 }

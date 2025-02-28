@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct MainTabView: View {
-    @Binding var show: Bool
+    @AppStorage("isOnboardingCoverShowing") var isOnboardingCoverShowing = true
     var body: some View {
         TabView {
             ResumeView()
@@ -28,11 +28,14 @@ struct MainTabView: View {
                     Text("Explorar")
                 }
         }
+        .fullScreenCover(isPresented: $isOnboardingCoverShowing) {
+            OnBoardingView()
+        }
     }
 }
 
 #Preview {
-    MainTabView(show: .constant(true))
-        .modelContainer(for: Pet.self, inMemory: true)
+    MainTabView()
+        .modelContainer(for: Pet.self)
 }
 

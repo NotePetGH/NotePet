@@ -21,6 +21,8 @@ class Pet: Identifiable {
     var consultas: [Consulta]
     var remedios: [Remedio]
     var caminhadas: [Caminhada]
+    var distanciaHoje: Int = 0
+    var tempoHoje: TimeInterval = 0
     
     init(name: String, age: Int, imageURL: UIImage, animal: String, gender: String, vacinas: [Vacina], consultas: [Consulta], remedios: [Remedio], caminhadas: [Caminhada]) {
         self.name = name
