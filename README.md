@@ -1,4 +1,6 @@
-<img align="center" width="200" src="https://github.com/user-attachments/assets/4e6d44b2-8e1e-4732-a0e7-34a0cd700989" />
+<div align="center">
+<img width="200" src="https://github.com/user-attachments/assets/4e6d44b2-8e1e-4732-a0e7-34a0cd700989" />
+<div/>
 
 # NotePet
 
